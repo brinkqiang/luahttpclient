@@ -29,14 +29,12 @@ static int post(lua_State *L)
 {
     const std::string url(lua_tostring(L, -1));
 
-
     try
     {
         curlpp::Cleanup myCleanup;
 
-        curlpp::options::Url myUrl(url);
         curlpp::Easy myRequest;
-        myRequest.setOpt(new curlpp::options::Url("http://baidu.com"));
+        myRequest.setOpt(new curlpp::options::Url(url));
 
         std::stringstream os;
         curlpp::options::WriteStream ws(&os);
@@ -54,8 +52,6 @@ static int post(lua_State *L)
     {
         std::cout << e.what() << std::endl;
     }
-
-
 
     return 1;
 }
