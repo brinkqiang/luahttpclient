@@ -81,7 +81,7 @@ IF (WIN32)
     ENDIF(USE_LUA_INNER)
 
     ADD_LIBRARY(luahttpclient SHARED ${LUAHTTPCLIENT_SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/src/luahttpclient/luahttpclient_module.def)
-    TARGET_LINK_LIBRARIES(luahttpclient lua53)
+    TARGET_LINK_LIBRARIES(luahttpclient lua53 libcurl curlpp)
 
     SET_TARGET_PROPERTIES(luahttpclient PROPERTIES COMPILE_FLAGS "-DLUA_BUILD_AS_DLL -DLUA_LIB")
 
@@ -98,7 +98,7 @@ ELSEIF (APPLE)
         SET_TARGET_PROPERTIES(lua53 PROPERTIES COMPILE_FLAGS "-Wl,-E" )
 
         ADD_EXECUTABLE(lua ${LUA_SOURCES})
-        TARGET_LINK_LIBRARIES(lua lua53 dl)
+        TARGET_LINK_LIBRARIES(lua lua53 dl libcurl curlpp)
     ENDIF(USE_LUA_INNER)
 
     ADD_LIBRARY(luahttpclient SHARED ${LUAHTTPCLIENT_SOURCES})
@@ -119,7 +119,7 @@ ELSEIF (UNIX)
         SET_TARGET_PROPERTIES(lua53 PROPERTIES COMPILE_FLAGS "-Wl,-E" )
 
         ADD_EXECUTABLE(lua ${LUA_SOURCES})
-        TARGET_LINK_LIBRARIES(lua lua53 m dl)
+        TARGET_LINK_LIBRARIES(lua lua53 m dl libcurl curlpp)
     ENDIF(USE_LUA_INNER)
 
     ADD_LIBRARY(luahttpclient SHARED ${LUAHTTPCLIENT_SOURCES})
