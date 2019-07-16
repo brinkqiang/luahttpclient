@@ -29,29 +29,33 @@ static int post(lua_State *L)
 {
     const std::string url(lua_tostring(L, -1));
 
-    curlpp::options::Url myUrl(std::string("http://baidu.com"));
-    curlpp::Easy myRequest;
-    myRequest.setOpt(myUrl);
 
-    // Now that all the options we wanted to set are there, we need to
-    // actually do the request. the "perform" method does actually that.
-    // With that call, the request will be done and the content of that URL
-    // will be printed in std::cout (which is the default).
-    myRequest.perform();
+    try
+    {
+        curlpp::Cleanup myCleanup;
 
-    // If we wanted to put the content of the URL within a string stream
-    // (or any type of std::ostream, for that matter), like the first example, 
-    // we would use the WriteStrem option like this:
-    std::ostringstream os;
-    curlpp::options::WriteStream ws(&os);
-    myRequest.setOpt(ws);
-    myRequest.perform();
+        curlpp::options::Url myUrl(url);
+        curlpp::Easy myRequest;
+        myRequest.setOpt(new curlpp::options::Url("http://baidu.com"));
 
-    // There is some shorcut within curlpp that allow you to write shorter code
-    // like this:
-    os << myRequest;
-    std::string strRequest = os.str();
-    lua_pushlstring(L, strRequest.c_str(), strRequest.size());
+        std::stringstream os;
+        curlpp::options::WriteStream ws(&os);
+        myRequest.setOpt(ws);
+        myRequest.perform();
+
+        std::string strRequest = os.str();
+        lua_pushlstring(L, strRequest.c_str(), strRequest.size());
+    }
+    catch (curlpp::RuntimeError &e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    catch (curlpp::LogicError &e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+
+
 
     return 1;
 }
