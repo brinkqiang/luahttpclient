@@ -36,6 +36,11 @@ static int post(lua_State *L)
         curlpp::Easy myRequest;
         myRequest.setOpt(new curlpp::options::Url(url));
 
+        curlpp::Forms formParts;
+        //formParts.push_back(new curlpp::FormParts::Content("name1", "value1"));
+        //formParts.push_back(new curlpp::FormParts::Content("name2", "value2"));
+        myRequest.setOpt(new curlpp::options::HttpPost(formParts));
+
         std::stringstream os;
         curlpp::options::WriteStream ws(&os);
         myRequest.setOpt(ws);
@@ -66,6 +71,12 @@ static int get(lua_State *L)
 
         curlpp::Easy myRequest;
         myRequest.setOpt(new curlpp::options::Url(url));
+ 
+
+        curlpp::Forms formParts;
+        //formParts.push_back(new curlpp::FormParts::Content("name1", "value1"));
+        //formParts.push_back(new curlpp::FormParts::Content("name2", "value2"));
+        myRequest.setOpt(new curlpp::options::HttpGet(true));
 
         std::stringstream os;
         curlpp::options::WriteStream ws(&os);
