@@ -18,6 +18,6 @@ ADD_DEFINITIONS(-DLUA_COMPAT_MODULE -DLUA_COMPAT_APIINTCASTS)
 ModuleImport("dmcurl" "thirdparty/dmcurl")
 
 
-SET(LUA_MODULE lua54)
+SET(LUA_MODULE lua53)
 
 LuaModuleImport("${LUA_MODULE}" "luahttpclient" "src/luahttpclient" "libcurl;curlpp")
