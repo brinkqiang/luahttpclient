@@ -16,11 +16,7 @@ MESSAGE(STATUS "VERSION: ${DMCURL_VERSION}")
 
 ADD_DEFINITIONS(-DUSE_DMCURL)
 ADD_DEFINITIONS(-DNOMINMAX)
-
-OPTION(USE_LUA_INNER "use lua inner" ON)
-OPTION(USE_LUAHTTPCLIENT_TEST "use luahttpclient test" ON)
-
-ModuleImport("dmformat" "thirdparty/dmformat")
+ModuleInclude("dmformat" "thirdparty/dmformat")
 ModuleImport("mbedtls" "thirdparty/mbedtls")
 ModuleImport("curl" "thirdparty/curl")
 ModuleImport("curlpp" "thirdparty/curlpp")
