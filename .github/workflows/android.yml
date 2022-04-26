@@ -1,4 +1,4 @@
-name: mac
+name: android
 
 on: [workflow_dispatch]
 
